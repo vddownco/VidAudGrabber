@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VidAudGrabber</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">VIDAUDGRABBER</h1>
+
+    <div class="input-box" onclick="activateInput()">
+      <span class="placeholder">Your URL here</span>
+      <input type="text" class="url-input" placeholder="Paste your link here..." onfocus="showOptions()">
+
+      <div class="format-options">
+        <label><input type="radio" name="format" value="mp4"> MP4</label>
+        <label><input type="radio" name="format" value="mp3"> MP3</label>
+      </div>
+
+      <button class="download-btn">Get Download</button>
+    </div>
+  </div>
+
+  <script>
+    function activateInput() {
+      document.querySelector('.url-input').focus();
+    }
+
+    function showOptions() {
+      document.querySelector('.format-options').classList.add('show');
+      document.querySelector('.download-btn').classList.add('show');
+    }
+  </script>
+</body>
+</html>
