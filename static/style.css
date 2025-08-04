@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Playfair Display', serif;
+  background: url('VidAudGrabber.png') no-repeat center center/cover;
+  height: 100vh;
+  color: #fcd4e1;
+}
+
+.container {
+  padding: 40px;
+}
+
+.title {
+  font-size: 50px;
+  letter-spacing: 3px;
+  border-bottom: 2px solid #fcd4e1;
+  display: inline-block;
+  margin-bottom: 60px;
+  margin-top: 0px;
+}
+
+.input-box {
+  position: relative;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 20px;
+  width: 470px;
+  margin: auto;
+  margin-top: 150px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.placeholder {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fcd4e1;
+  font-size: 20px;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.url-input {
+  width: 420px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  outline: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.input-box:hover .placeholder,
+.url-input:focus + .placeholder {
+  opacity: 0;
+}
+
+.input-box:hover .url-input,
+.url-input:focus {
+  opacity: 1;
+}
+
+.format-options {
+  margin-top: 20px;
+  display: none;
+  gap: 20px;
+  justify-content: center;
+}
+
+.format-options label {
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.format-options input {
+  margin-right: 8px;
+  transform: scale(1.2);
+}
+
+.format-options.show {
+  display: flex;
+}
+
+.download-btn {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background: #8e9fe3;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  display: none;
+  transition: background 0.3s ease;
+}
+
+.download-btn.show {
+  display: inline-block;
+}
+
+.download-btn:hover {
+  background: #5a6bcf;
+}
