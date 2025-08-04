@@ -9,28 +9,77 @@
   <div class="container">
     <h1 class="title">VIDAUDGRABBER</h1>
 
-    <div class="input-box" onclick="activateInput()">
-      <span class="placeholder">Your URL here</span>
-      <input type="text" class="url-input" placeholder="Paste your link here..." onfocus="showOptions()">
+    <div class="input-box">
+      <form id="download-form">
+        <input type="text" name="url" class="url-input" placeholder="Paste your link here..." required>
 
-      <div class="format-options">
-        <label><input type="radio" name="format" value="mp4"> MP4</label>
-        <label><input type="radio" name="format" value="mp3"> MP3</label>
-      </div>
+        <div class="format-options">
+          <label><input type="radio" name="format" value="mp4" required> MP4</label>
+          <label><input type="radio" name="format" value="mp3" required> MP3</label>
+        </div>
 
-      <button class="download-btn">Get Download</button>
+        <button type="submit" class="download-btn">Get Download</button>
+      </form>
     </div>
   </div>
 
-  <script>
-    function activateInput() {
-      document.querySelector('.url-input').focus();
-    }
+  <div class="loading-overlay" id="loading">
+    <div class="spinner"></div>
+  </div>
 
-    function showOptions() {
-      document.querySelector('.format-options').classList.add('show');
-      document.querySelector('.download-btn').classList.add('show');
+ <script>
+  const form = document.getElementById('download-form');
+  const loading = document.getElementById('loading');
+
+  // ✅ Reset input field on page load
+  window.onload = () => {
+    form.reset();
+  };
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    loading.style.display = 'flex';
+
+    const formData = new FormData(form);
+    const url = formData.get('url');
+    const format = formData.get('format');
+
+    try {
+      const response = await fetch('/download', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error('Download failed');
+      }
+
+      const blob = await response.blob();
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = downloadUrl;
+
+      const disposition = response.headers.get('Content-Disposition');
+      const match = /filename="?([^"]+)"?/.exec(disposition);
+      a.download = match ? match[1] : `download.${format}`;
+
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(downloadUrl);
+    } catch (error) {
+      alert('Error during download: ' + error.message);
+    } finally {
+      loading.style.display = 'none';
     }
-  </script>
-</body>
-</html>
+  });
+
+  document.querySelector('.input-box').addEventListener('click', () => {
+    document.querySelector('.url-input').focus();
+  });
+
+  document.querySelector('.url-input').addEventListener('focus', () => {
+    document.querySelector('.format-options').classList.add('show');
+    document.querySelector('.download-btn').classList.add('show');
+  });
+</script>
