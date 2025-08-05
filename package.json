@@ -1,0 +1,11 @@
+{
+  "name": "flask-youtube-downloader",
+  "version": "1.0.0",
+  "description": "YouTube downloader Flask application",
+  "scripts": {
+    "build": "python -m pip install -r requirements.txt && python build.py",
+    "start": "python app.py"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
